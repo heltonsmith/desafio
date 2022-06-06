@@ -1,0 +1,42 @@
+<h1>Posts</h1>
+
+<% if @posts.count > 0 %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Content</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+
+  <div id="posts">
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.user.name %></td>
+        <td><%= post.content %></td>
+        <td>
+          <%= link_to post do %> 
+            <%= image_tag 'ver.png', size: '20x20' %>
+          <% end %> <br>
+
+          <%= link_to edit_post_path(post) do %> 
+            <%= image_tag 'editar.png', size: '20x20' if current_user.rol == "Admin"%>
+          <% end %> <br>
+
+          <%= link_to post, data: {"turbo-method": :delete} do %> 
+            <%= image_tag 'borrar.png', size: '20x20' if current_user.rol == "Admin"%>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </div>
+
+</table>
+
+<% else %>
+  <h1>No hay posts</h1>
+<% end %>
+
+<%= link_to "New post", new_post_path %>

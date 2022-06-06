@@ -1,0 +1,18 @@
+<header>
+    <% if user_signed_in? %>
+        <nav>
+            <%= link_to "Home", root_path %>
+            <%= link_to "Posts", posts_path %>
+        </nav>
+        <p>
+            Bienvenido: <strong><%= current_user.name %>!</strong> <br>
+            Rol: <strong><%= current_user.rol %>!</strong></p>
+        <p><%= link_to "Cerrar sesion", destroy_user_session_path, data: { "turbo-method": :delete } %></p>
+    <% else %>
+        <p>
+        No has iniciado sesion aun!!!
+        <%= link_to "Regístrate!", new_user_registration_path %>
+        <%= link_to "Inicia sesion!", new_user_session_path %>
+        </p>
+    <% end %>
+</header>
